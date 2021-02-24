@@ -3,23 +3,43 @@ import OrderItemModal from "../order/order-item-modal";
 
 const FoodCard = ({
   type,
+  dog,
   food,
   icons,
   kibble,
-  selectCookedFood,
+  handleSelectedCookedRecipes,
   selectedCookedRecipes,
-  selectKibbleRecipe,
-  selected,
-  selectedLength,
+  kibbleRecipe,
+  recipe,
+  keys,
 }) => {
-  if (!selectedCookedRecipes && !kibble) return null
-
-  const [details, openDetails] = useState(false);
-  const kibbleOnlyNull = kibble.some(function (el) {
-    return el !== null;
-  });
+  const [kibble_, isKibble] = useState(false);
+  const [cooked, isCooked] = useState(false);
+  const [selected, isSelected] = useState(false);
+  const [details, openDetails] = useState(false)
   //const [recipe_, setRecipe] = useState("");
 
+  useEffect(() => {
+    if (type === "cooked") {
+      keys.includes(`${recipe}_recipe`)
+        ? isSelected(dog[`${recipe}_recipe`])
+        : isSelected(false);
+    }
+  }, []);
+
+  const selectKibbleRecipe = (food) => {
+    isKibble(!kibble_);
+    isSelected(!selected);
+    kibbleRecipe(food);
+  };
+
+  const selectCookedFood = (food) => {
+    isCooked(!cooked);
+    isSelected(!selected);
+    handleSelectedCookedRecipes(food);
+  };
+
+  if (!selectedCookedRecipes && !kibble) return null
 
   const selectedText = "bg-green-700 border border-green-700 hover:border-transparent focus:outline-none text-white text-sm md:text-base font-bold p-1 md:py-2 md:px-5 w-4/5 rounded-xl mt-2 md:mt-0"
   const unSelectedText = "bg-transparent border border-green-700 hover:border-transparent focus:outline-none hover:bg-green-700 text-primary hover:text-white font-bold text-sm md:text-base w-4/5 p-1 md:py-2 md:px-5 rounded-xl border-green  mt-2 md:mt-0"
@@ -28,16 +48,10 @@ const FoodCard = ({
       <div
         className={
           type === "kibble"
-            ? `bg-kibble-${food.recipe} w-auto md:w-1/2 h-full flex items-center justify-center h-1/2 md:h-auto relative`
-            : `bg-${food.recipe} w-auto md:w-1/2 h-full flex items-center justify-center h-1/2 md:h-auto relative`
+            ? `bg-kibble-${food.recipe} w-auto md:w-1/2 h-full flex items-center justify-center h-1/2 md:h-auto`
+            : `bg-${food.recipe} w-auto md:w-1/2 h-full flex items-center justify-center h-1/2 md:h-auto`
         }
       >
-        {food.new && (
-          <div className="recipeBadge">
-            <span className="font-messina">NEW</span>
-          </div>
-        )}
-
         <img src={food.image_url} className="h-4/5 max-h-28 md:mx-h-none" />
       </div>
       <div
@@ -53,17 +67,35 @@ const FoodCard = ({
         <div onClick={() => { openDetails(true) }} className="text-primary font-bold text-sm md:text-base mt-2 md:mt-0 font-messina cursor-pointer">See Details</div>
         {type === "kibble" ? (
           <button
-            className={selected ? selectedText : unSelectedText}
+            className={
+              kibble_ || selected
+                ? selectedText
+                : unSelectedText
+            }
             onClick={() => selectKibbleRecipe(food)}
-            disabled={selectedLength >= 2 && !selected && !kibbleOnlyNull}
+            value={kibble_}
+            disabled={
+              (!kibble_ && !selected && selectedCookedRecipes && selectedCookedRecipes.length === 2) ||
+              (!kibble_ && !selected && kibble && kibble.length === 1)
+            }
           >
             {selected ? 'Recipe Added' : 'Add Recipe'}
           </button>
         ) : (
             <button
-              className={selected ? selectedText : unSelectedText}
+              className={
+                cooked || selected
+                  ? selectedText
+                  : unSelectedText
+              }
               onClick={() => selectCookedFood(food)}
-              disabled={selectedLength >= 2 && !selected}
+              value={cooked}
+              disabled={
+                (!cooked && selectedCookedRecipes.length === 2 && !selected) ||
+                (!cooked && !selected &&
+                  kibble && kibble.length > 0 &&
+                  selectedCookedRecipes.length === 1)
+              }
             >
               {selected ? 'Recipe Added' : 'Add Recipe'}
             </button>

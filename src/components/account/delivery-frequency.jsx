@@ -12,11 +12,6 @@ class FrequencyModal extends React.Component {
     super(props);
     this.state = {
       dogIndex: 0,
-      changed: {
-        amount_of_food: false,
-        how_often: false,
-        starting_date: false
-      },
       submitted: false,
     };
     this.setDog = this.setDog.bind(this)
@@ -41,24 +36,11 @@ class FrequencyModal extends React.Component {
     this.props.updateDelivery(submitData)
   }
 
-  handleChange = (event) => {
-    let key = event.target.name
-    console.log(key);
-    ///Blocking confirm button if no changes in state.
-    if (key && this.props.user) {
-      let originalValue = this.props.user[key]
-      this.setState({
-        changed: { ...this.state.changed, [key]: `${event.target.value}` !== `${originalValue}` }
-      })
-    }
-  }
-
   render() {
-    const { dogIndex, submitted, changed } = this.state
+    const { dogIndex, submitted } = this.state
     const { dogs, user } = this.props
     const { amount_of_food_options, amount_of_food, how_often_options, delivery_starting_date_options, how_often, error, loading } = user
     const currentDog = dogs[dogIndex]
-    const disabled = !changed.starting_date && !changed.how_often && !changed.amount_of_food;
 
     const SelectOptions = (array,) => (array.map((delayOption, i) => (
       <option className="w-full" key={i} value={delayOption.value}>{delayOption.label}  </option>
@@ -72,7 +54,11 @@ class FrequencyModal extends React.Component {
             Reminder about Deliveries
           </div>
           <div className="text-black text-sm font-normal mt-3">
-            Keep in mind, changes made to your account will be reflected in your next delivery date
+            Keep in mind changes you make to your delivery amount,
+            frequency and next delivery date will only affect your next delivery
+          </div>
+          <div className="text-primary font-semibold m-3" >
+            Learn more about our deliveries
           </div>
         </div>
         <form
@@ -82,13 +68,7 @@ class FrequencyModal extends React.Component {
           >
             Amount of Food Per dog
           </div>
-          <select
-            initialValue={amount_of_food}
-            className="w-full" name="amount_of_food"
-            label="How Often"
-            component="select"
-            onChange={this.handleChange}
-          >
+          <select initialValue={amount_of_food} className="w-full" name="amount_of_food" label="How Often" component="select">
             {SelectOptions(amount_of_food_options)}
           </select>
           <div
@@ -96,10 +76,7 @@ class FrequencyModal extends React.Component {
           >
             How Often?
           </div>
-          <select initialvalue={how_often} onChange={this.handleChange}
-            className="w-full" name="how_often" label="How Often"
-            component="select"
-          >
+          <select initialvalue={how_often} className="w-full" name="how_often" label="How Often" component="select">
             {SelectOptions(how_often_options)}
           </select>
           <div
@@ -107,16 +84,12 @@ class FrequencyModal extends React.Component {
           >
             Next Delivery Date
           </div>
-          <select className="w-full " onChange={this.handleChange}
-            name="starting_date" label="How Often"
-            component="select"
-          >
+          <select className="w-full " name="starting_date" label="How Often" component="select">
             {SelectOptions(delivery_starting_date_options)}
           </select>
           <button
             type="submit"
-            disabled={disabled}
-            className={`bg-primary ${disabled ? "opacity-50 cursor-not-allowed" : ""} text-white rounded-xl font-semibold py-2.5 px-6 mt-8`}
+            className="bg-primary text-white rounded-xl font-semibold py-2.5 px-6 mt-8"
           >
             Save Changes
           </button>

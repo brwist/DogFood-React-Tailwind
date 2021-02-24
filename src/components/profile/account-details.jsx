@@ -29,7 +29,9 @@ const AccountDetails = ({ user = null, dogs = null, updateUserPhoneEmail,logout}
       email: email,
       phone_number: phoneNumber,
     };
+
     updateUserPhoneEmail(apiObject) && setSubmitted(true)
+    
   };
 
   console.log("check user",user)

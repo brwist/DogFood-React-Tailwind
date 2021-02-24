@@ -10,8 +10,9 @@ import { ReactComponent as MealBox } from "../../assets/images/meal-plan.svg";
 import DeliveryModal from "../../components/account/delivery-modal.jsx";
 import MealPlanModal from "../../components/account/meal-modal.jsx";
 import FrequencyModal from "../../components/account/delivery-frequency.jsx";
-import DogImage from "../../assets/images/Badge-Labrador-Retriever.svg";
-import HomeLoader from "../../loaders/homeLoader";
+import LoadingCircle from "../../components/partials/loading.jsx";
+import DogImage from '../../assets/images/Badge-Labrador-Retriever.svg';
+
 import { userActions } from "../../actions";
 
 class AccountPage extends React.Component {
@@ -34,11 +35,11 @@ class AccountPage extends React.Component {
   componentDidMount() {
     this.props.getAccountData();
     this.props.getSubscriptionData();
-    this.props.getRecipeData();
+    this.props.getRecipeData()
   }
 
   render() {
-    if (!this.props.dogs.length) return <HomeLoader />;
+    if (!this.props.dogs.length) return <null />;
     const { user, subscriptions, dogs } = this.props;
 
     let dogNames = dogs.map((dog, i) => {
@@ -121,6 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
   getAccountData: () => dispatch(userActions.getAccountData()),
   getSubscriptionData: () => dispatch(userActions.getSubscriptionData()),
   getRecipeData: () => dispatch(userActions.getRecipeData()),
+
 });
 
 const mapStateToProps = (state) => {

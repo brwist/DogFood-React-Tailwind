@@ -3,10 +3,11 @@ import chickenIcon from "../../assets/images/recipe/chicken-recipe.png";
 import lambIcon from "../../assets/images/recipe/lamb-recipe.png";
 import turkeyIcon from "../../assets/images/recipe/turkey-recipe.png";
 import beefIcon from "../../assets/images/recipe/beef-recipe.png";
-import FoodCard from "./food-card";
+import FoodCard from "./foodCard";
 
 const MealPlanSelect = ({
   type,
+  dog,
   index,
   recipes,
   selectedKibble,
@@ -15,13 +16,31 @@ const MealPlanSelect = ({
   selectedCookedRecipes,
   handleSelectedCookedRecipes,
   toggleKibble,
-  selectedLength,
+  isKibble,
 }) => {
   let icons = {
     chicken: chickenIcon,
     beef: beefIcon,
     lamb: lambIcon,
     turkey: turkeyIcon,
+  };
+  const [selected, isSelected] = useState(false);
+
+  // useEffect(() => {
+  //   let recipe_name = "";
+  //   for (let [key, val] of Object.entries(food)) {
+  //     if (key === "recipe" && type === "cooked") {
+  //       recipe_name += `${val}_${key}`;
+  //     }
+  //   }
+
+  //   if (type === "cooked") {
+  //     console.log("food card", dog[recipe_name]);
+  //   }
+  // });
+
+  const handleSelected = () => {
+    isSelected(!selected);
   };
 
   return (
@@ -31,20 +50,21 @@ const MealPlanSelect = ({
           <FoodCard
             key={idx}
             type={type}
+            dog={dog}
             index={index}
             food={food}
             icons={icons}
+            selected={selected}
             selectedDog={selectedDog}
-            selected={type === 'kibble'
-              ? selectedKibble.includes(food.recipe)
-              : selectedCookedRecipes.includes(food.recipe)}
-            selectedLength={selectedLength}
-            selectCookedFood={handleSelectedCookedRecipes}
+            handleSelected={handleSelected}
+            handleSelectedCookedRecipes={handleSelectedCookedRecipes}
             selectedCookedRecipes={selectedCookedRecipes}
-            selectKibbleRecipe={selectedKibbleRecipe}
+            kibbleRecipe={selectedKibbleRecipe}
             kibble={selectedKibble}
             toggleKibble={toggleKibble}
+            isKibble={isKibble}
             recipe={food.recipe}
+            keys={dog && Object.keys(dog).length > 0 ? Object.keys(dog) : []}
           />
         ))}
     </React.Fragment>
