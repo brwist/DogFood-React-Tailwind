@@ -14,6 +14,9 @@ import OrderDetail from "./pages/order/detail";
 import Step1 from "./pages/on-boarding/step-1";
 import Step2 from "./pages/on-boarding/step-2";
 import Step3 from "./pages/on-boarding/step-3";
+import Step4 from "./pages/on-boarding/step-4";
+import Step5 from "./pages/on-boarding/step-5";
+
 import Onboarding from "./pages/onboardings";
 
 function App() {
@@ -27,6 +30,8 @@ function App() {
             <Route path="/onboarding/step-1" component={Step1} />
             <Route path="/onboarding/step-2" component={Step2} />
             <Route path="/onboarding/step-3" component={Step3} />
+            <Route path="/onboarding/step-4" component={Step4} />
+            <Route path="/onboarding/step-5" component={Step5} />
             <Route path="/onboarding" component={Onboarding} />
             <Route path="/login" component={LoginPage} />
             <PrivateRoute path="/orders" exact component={AllOrdersPage} />
