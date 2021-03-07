@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoadingCircle from '../../components/partials/loading';
 import MealPlanSelect from '../../components/meal-plan/meal-plan-select';
+import "./style.css";
 
 class RecipeSelection extends Component {
   handleChange = (selectedDog) => {
@@ -48,7 +49,7 @@ class RecipeSelection extends Component {
         <div className='w-full'>
           <>
             <div>
-              <div className='font-messina font-bold pt-5 text-black bg-white text-2xl customContainer mx-auto pb-5'>
+              <div className='font-sofiaPro text-fadeGrey font-bold pt-5 bg-white text-2xl customContainer mx-auto pb-5'>
                 What's in {dog && dog.name}'s Box (Choose up to 2 and click Save Changes):
               </div>
             </div>

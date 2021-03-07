@@ -24,6 +24,7 @@ module.exports = {
         secondary: '#124E37',
         charcoal: '#414141',
         lightGrey: '#525252',
+        fadeGrey: '#2a3c49',
       },
       backgroundColor: {
         primary: '#239C6D',
@@ -36,7 +37,7 @@ module.exports = {
         turkey: '#875D45',
         lamb: '#9EC694',
         kibble: {
-          chicken: '#FECD6D',
+          chicken: '#eebd5e',
           'turkey+salmon': '#FE766D',
           duck: '#91CEB6',
         },
@@ -86,6 +87,8 @@ module.exports = {
     fontFamily: {
       messina: ['Messinasans, sans-serif'],
       cooper: ['Cooper', 'sans-serif'],
+      sofiaPro: ['sofia-pro'],
+      mackinac: ['p22-mackinac-pro'],
     },
     container: {
       center: true,

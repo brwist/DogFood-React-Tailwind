@@ -79,3 +79,12 @@
   top: 235.44px;
   color: white;
 }
+
+.mealplan-choose-text  {
+  text-align: left;
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+    font-weight: 700;
+    color: #2a3c49;
+}
+

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OrderItemModal from '../order/order-item-modal';
 import chevron from '../../assets/images/chevron.svg';
+import "./style.css";
 
 const FoodCard = ({
   type,
@@ -26,21 +27,21 @@ const FoodCard = ({
   //const [recipe_, setRecipe] = useState("");
 
   const selectedText =
-    'bg-green-100 border border-green  focus:outline-none text-primary text-sm md:text-base font-bold p-1 md:py-2 md:px-5 w-4/5 rounded mt-2';
+    'bg-green-100 border border-green  focus:outline-none text-primary text-sm md:text-base font-bold p-1 md:py-2 md:px-5 w-4/5 rounded mt-2 foodcard-add-button';
   const unSelectedText =
-    'bg-transparent border border-green-700 hover:border-transparent focus:outline-none hover:bg-green-700 text-primary hover:text-white font-bold text-sm md:text-base w-4/5 p-1 md:py-2 md:px-5 rounded border-green  mt-2';
+    'bg-transparent border border-green-700 hover:border-transparent focus:outline-none hover:bg-green-700 text-primary hover:text-white font-bold text-sm md:text-base w-4/5 p-1 md:py-2 md:px-5 rounded border-green  mt-2 foodcard-add-button';
   return (
     <div>
       <div
-        className={`hidden sm:block rounded-6md  w-full mb-4  md:flex-row flex-col overflow-hidden  ${
+        className={`hidden sm:block rounded-6md  w-full mb-4  md:flex-row flex-col overflow-hidden foodcard ${
           selected ? `border-3 border-${food.recipe}` : `border-2 border-gray-200`
         }`}
       >
         <div
           className={
             type === 'kibble'
-              ? `bg-kibble-${food.recipe} rounded-tr-5md rounded-tl-5md p-5 w-auto  h-full flex items-center justify-center h-1/2 md:h-auto relative`
-              : `bg-${food.recipe} w-auto rounded-tr-5md rounded-tl-5md p-5 h-full flex items-center justify-center h-1/2 md:h-auto relative`
+              ? `bg-kibble-${food.recipe} rounded-tr-5md rounded-tl-5md p-5 w-auto  h-full flex items-center justify-center h-1/2 md:h-auto relative mealplan-meal-image`
+              : `bg-${food.recipe} w-auto rounded-tr-5md rounded-tl-5md p-5 h-full flex items-center justify-center h-1/2 md:h-auto relative mealplan-meal-image`
           }
         >
           {food.new && (
@@ -58,16 +59,16 @@ const FoodCard = ({
               : 'w-full rounded-br-lg rounded-bl-lg bg-white focus:bg-green-100 py-5 flex flex-col items-center justify-between'
           }
         >
-          <div className='font-normal md:text-xl text-sm text-black text-center'>{food.name}</div>
+          <div className='font-mackinac text-2xl text-black text-center pb-2'>{food.name}</div>
           <div
             onClick={() => {
               openDetails(true);
             }}
-            className='text-primary font-bold text-sm md:text-base mt-2 md:mt-1 font-messina cursor-pointer'
+            className='text-primary text-sm mt-2 md:mt-1 font-messina cursor-pointer font-normal	 mealplan-choose-details'
           >
             See Details
           </div>
-          <p className='px-4 text-sm my-4 foodCardDesc'>{food.ingredients}</p>
+          <div className='text-fadeGrey font-normal py-2 px-4 text-sm foodCardDesc'>{food.ingredients}</div>
           {type !== 'kibble' && user.kibble_recipes && (
             <select
               className='w-11/12 mx-auto px-3 py-3 bg-white border border-gray-100 rounded-0 opacity-0 '

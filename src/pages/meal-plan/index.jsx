@@ -280,23 +280,7 @@ class EditPlan extends Component {
               getDailyDietPortion={getDailyDietPortion}
               kibbleRecipes={kibbleRecipes}
             />
-            <SelectedRecipes
-            dog={dog}
-              user={user}
-              index={this.props.match.params.id}
-              selectedDog={this.selectedDog}
-              handleSelectedCookedRecipes={this.handleSelectedCookedRecipes}
-              selectedCookedRecipes={cookedRecipes}
-              handleSelectedKibbleRecipe={this.handleSelectedKibbleRecipe}
-              selectedKibble={kibbleRecipes}
-              selectedLength={selectedLength}
-              toggleKibble={this.toggleKibble}
-              isKibble={this.state.isKibble}
-              estimate={
-                !user.estimate ? null : user.estimate.amount
-              }
-              onConfirm={(e) => this.handleMealUpdate(e)}
-            />
+            
           
         </div>     
       </div>

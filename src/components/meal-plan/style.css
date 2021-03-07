@@ -91,3 +91,21 @@
   outline: none;
   border: 0px;
 }
+
+.mealplan-meal-image {
+  height: 200px;
+}
+.foodcard {
+  height: 540px;
+}
+.foodcard-add-button {
+  color: #239c6d;
+  display: block;
+  border: 1px solid #239c6d;
+  border-radius: 4px;
+  text-align: center;
+  padding: 1rem .5rem;
+  margin: 1rem;
+  margin-bottom: .5rem;
+  font-size: 1rem;
+}
