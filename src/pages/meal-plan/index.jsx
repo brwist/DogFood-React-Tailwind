@@ -232,7 +232,6 @@ class EditPlan extends Component {
       subData && subData.invoice_estimate_total === 'N/A'
         ? 0
         : subData && (subData.invoice_estimate_total / 100).toFixed(2);
-
     return (
       <div className="md:bg-white sm:px-2 md:px-4 xl:px-0">
         <div className="justify-center mb-5 customContainer md:border  border-gray-200 p-4 rounded-lg">
@@ -244,7 +243,7 @@ class EditPlan extends Component {
               />
             </div>
             <div>
-              <h1 className="font-extrabold text-3xl mb-1">jontest's Plan</h1>
+              <h1 className="font-extrabold text-3xl mb-1">{user.user.first_name}'s Plan</h1>
               <p className="text-xl">Active Subscription</p>
             </div>
           </div>
