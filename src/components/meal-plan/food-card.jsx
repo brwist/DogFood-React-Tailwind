@@ -29,7 +29,7 @@ const FoodCard = ({
   const selectedText =
     'bg-green-100 border border-green  focus:outline-none text-primary text-sm md:text-base font-bold p-1 md:py-2 md:px-5 w-4/5 rounded mt-2 foodcard-add-button';
   const unSelectedText =
-    'bg-transparent border border-green-700 hover:border-transparent focus:outline-none hover:bg-green-700 text-primary hover:text-white font-bold text-sm md:text-base w-4/5 p-1 md:py-2 md:px-5 rounded border-green  mt-2 foodcard-add-button';
+    'bg-transparent border border-green-700 hover:border-transparent focus:outline-none hover:bg-green-700 text-primary hover:text-white font-bold sm:text-xs md:text-sm md:text-base w-4/5 p-1 md:py-2 md:px-5 rounded border-green  mt-2 foodcard-add-button';
   return (
     <div>
       <div
@@ -129,8 +129,8 @@ const FoodCard = ({
         <div
           className={
             type === 'kibble'
-              ? `bg-kibble-${food.recipe} rounded-tr-5md rounded-tl-5md p-5 w-auto  h-full flex items-center justify-center h-1/2 md:h-auto relative`
-              : `bg-${food.recipe} w-auto rounded-tr-5md rounded-tl-5md p-5 h-full flex items-center justify-center h-1/2 md:h-auto relative`
+              ? `bg-kibble-${food.recipe}  rounded-tl-5md p-4  w-auto  flex items-center justify-center md:h-auto relative`
+              : `bg-${food.recipe} w-auto  rounded-tl-5md p-4  flex items-center justify-center h-1/2 md:h-auto relative`
           }
         >
           {food.new && (
@@ -144,20 +144,21 @@ const FoodCard = ({
         <div
           className={
             selected
-              ? 'w-full rounded-br-lg rounded-bl-lg bg-white focus:bg-green-100  flex flex-col justify-center px-2 relative'
-              : 'w-full rounded-br-lg rounded-bl-lg bg-white focus:bg-green-100  flex flex-col justify-center px-2 relative'
+              ? 'w-full rounded-br-lg rounded-bl-lg bg-white focus:bg-green-100  flex flex-col  px-2 relative'
+              : 'w-full rounded-br-lg rounded-bl-lg bg-white focus:bg-green-100  flex flex-col  px-2 relative'
           }
         >
-          <div className='font-normal md:text-xl text-sm text-black '>{food.name}</div>
+          <div className="flex justify-between items-center mt-4">
+          <div className='font-normal md:text-xl text-xs meal-name text-black '>{food.name}</div>
           <div
             onClick={() => {
               openDetails(true);
             }}
-            className='text-primary font-bold text-sm md:text-base mt-2 md:mt-1 font-messina cursor-pointer absolute right-0 top-0 mr-4'
+            className='text-primary text-xs md:text-base font-messina cursor-pointer'
           >
             See Details
           </div>
-          
+          </div>
 
           {type === 'kibble' && user.kibble_recipes && (
             <select
@@ -173,7 +174,7 @@ const FoodCard = ({
 
           {type === 'kibble' ? (
             <button
-              className={`${selected ? selectedText : unSelectedText} md:mt-4`}
+              className={`${selected ? selectedText : unSelectedText} margin-bottom-4`}
               onClick={() => selectKibbleRecipe(food)}
               disabled={selectedLength >= 2 && !selected && !kibbleOnlyNull}
             >
