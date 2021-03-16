@@ -57,21 +57,22 @@ module.exports = {
           'turkey+salmon': '#FE766D',
           duck: '#91CEB6',
         },
-        label: "#2F3D33",
+        label: '#2F3D33',
       },
       borderWidth: {
-        "3": "1.72532px",
+        '3': '1.72532px',
       },
       borderColor: {
-        green: "#239C6D",
-        chicken: "#FF9C63",
-        beef: "#239C6D",
-        turkey: "#875D45",
-        lamb: "#9EC694",
+        green: '#239C6D',
+        chicken: '#FF9C63',
+        beef: '#239C6D',
+        turkey: '#875D45',
+        lamb: '#9EC694',
+        dullishWhite: '#D7E4E0',
         kibble: {
-          chicken: "#FECD6D",
-          "turkey+salmon": "#FE766D",
-          duck: "#91CEB6",
+          chicken: '#FECD6D',
+          'turkey+salmon': '#FE766D',
+          duck: '#91CEB6',
         },
       },
       borderRadius: {
@@ -91,10 +92,14 @@ module.exports = {
       boxShadow: {
         modal: '0px 8px 40px rgb(0 0 0 / 20%)',
         green: 'inset 0px 0px 0px 3px #239C6D',
+        tableBoxShadow: '0px 4px 28px rgba(0, 0, 0, 0.04)',
+        light: '0px 4px 28px rgba(0, 0, 0, 0.04)',
       },
       width: {
         7.3: '1.875rem',
         13: '3.25rem',
+        '2/10': '20%',
+        '4/10': '40%',
       },
       maxWidth: {
         23: '23rem',
