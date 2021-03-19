@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { mealActions, userActions } from '../../actions';
-import RecipeSelection from './RecipeSelection';
-import DailyDietPortion from './DailyDietPortion';
-import SelectedRecipes from './SelectedRecipes';
-import FreshOrKibble from '../../components/meal-plan/fresh-kibble-selector';
-import Loader from '../../loaders/mealPlan';
-import { ReactComponent as Arrow } from '../../assets/images/Vectorarrow.svg';
-import { ReactComponent as DeliveryBox } from '../../assets/images/delivery-box.svg';
-import { ReactComponent as Bowl } from '../../assets/images/bowl-colour.svg';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { mealActions, userActions } from "../../actions";
+import RecipeSelection from "./RecipeSelection";
+import DailyDietPortion from "./DailyDietPortion";
+import SelectedRecipes from "./SelectedRecipes";
+import FreshOrKibble from "../../components/meal-plan/fresh-kibble-selector";
+import Loader from "../../loaders/mealPlan";
+import { ReactComponent as Arrow } from "../../assets/images/Vectorarrow.svg";
+import { ReactComponent as DeliveryBox } from "../../assets/images/delivery-box.svg";
+import { ReactComponent as Bowl } from "../../assets/images/bowl-colour.svg";
 
-import { userSelectors } from '../../selectors/user.selectors';
+import { userSelectors } from "../../selectors/user.selectors";
 
 class EditPlan extends Component {
   state = {
@@ -50,16 +50,16 @@ class EditPlan extends Component {
       this.setState({ dog: currentdog });
       let loadRecipes = [];
       if (currentdog.chicken_recipe) {
-        loadRecipes.push('chicken');
+        loadRecipes.push("chicken");
       }
       if (currentdog.beef_recipe) {
-        loadRecipes.push('beef');
+        loadRecipes.push("beef");
       }
       if (currentdog.lamb_recipe) {
-        loadRecipes.push('lamb');
+        loadRecipes.push("lamb");
       }
       if (currentdog.turkey_recipe) {
-        loadRecipes.push('turkey');
+        loadRecipes.push("turkey");
       }
       ///again not sure can be more then one kibble recipe
       this.setState({
@@ -216,7 +216,6 @@ class EditPlan extends Component {
       editRecipiesOpen,
       editPortionsOpen,
     } = this.state;
-
     if (user.subLoading) return <Loader />;
     let filteredKibble = kibbleRecipes[0] === null || !kibbleRecipes ? 0 : kibbleRecipes.length;
     let filteredCooked = cookedRecipes[0] === null || !cookedRecipes ? 0 : cookedRecipes.length;
@@ -231,17 +230,19 @@ class EditPlan extends Component {
 
     ////resolved NaN
     let totalReadable =
-      subData && subData.invoice_estimate_total === 'N/A'
+      subData && subData.invoice_estimate_total === "N/A"
         ? 0
         : subData && (subData.invoice_estimate_total / 100).toFixed(2);
-
+    const {
+      user: { dogs },
+    } = this.props;
     return (
       <div className="mx-2">
-        {dog && dog.name && (
+        {dog && dog.name && dogs && dogs.length > 1 && (
           <div className="sm:flex items-center sm:mb-8">
             <p>Select your doggo</p>
-            <select className="sm:ml-4 mt-2 sm:mt-0 px-3 py-3 min-w-10 bg-white border border-gray-300 rounded-lg" disabled>
-              {[{ name: dog && dog.name }].map((item, index) => (
+            <select className="sm:ml-4 mt-2 sm:mt-0 px-3 py-3 min-w-10 bg-white border border-gray-300 rounded-lg">
+              {[dog, ...dogs.filter(({ name }) => name !== dog.name)].map((item, index) => (
                 <option value={index}>{item.name}</option>
               ))}
             </select>
@@ -254,7 +255,9 @@ class EditPlan extends Component {
                 <Bowl className="w-14 md:w-20" />
               </div>
               <div className="pb-1 sm:pb-0">
-                <h1 className="font-extrabold text-2xl sm:text-3xl mb-1">{dog && dog.name}'s Plan</h1>
+                <h1 className="font-extrabold text-2xl sm:text-3xl mb-1">
+                  {dog && dog.name}'s Plan
+                </h1>
                 <p className="hidden sm:block text-xl">Active Subscription</p>
               </div>
             </div>
