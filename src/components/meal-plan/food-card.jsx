@@ -89,19 +89,21 @@ const FoodCard = ({
 
           {type === "kibble" ? (
             <button
+              type="button"
               className={`${selected ? selectedText : unSelectedText} md:mt-4`}
               onClick={() => selectKibbleRecipe(food)}
               disabled={selectedLength >= 2 && !selected && !kibbleOnlyNull}
             >
-              {selected ? "Remove from box" : `Add to ${dog && dog.name}'s box`}
+              {selected ? "Remove from box" : `Add to box`}
             </button>
           ) : (
             <button
+              type="button"
               className={`${selected ? selectedText : unSelectedText} md:mt-4`}
               onClick={() => selectCookedFood(food)}
               disabled={selectedLength >= 2 && !selected}
             >
-              {selected ? "Remove from box" : `Add to ${dog && dog.name}'s box`}
+              {selected ? "Remove from box" : `Add to box`}
             </button>
           )}
           <OrderItemModal
@@ -171,19 +173,21 @@ const FoodCard = ({
           <div className="flex justify-center">
             {type === "kibble" ? (
               <button
+                type="button"
                 className={`${selected ? selectedText : unSelectedText} margin-bottom-4`}
                 onClick={() => selectKibbleRecipe(food)}
                 disabled={selectedLength >= 2 && !selected && !kibbleOnlyNull}
               >
-                {selected ? "Remove from box" : `Add to ${dog && dog.name}'s box`}
+                {selected ? "Remove from box" : `Add to box`}
               </button>
             ) : (
               <button
+                type="button"
                 className={`${selected ? selectedText : unSelectedText} md:mt-4`}
                 onClick={() => selectCookedFood(food)}
                 disabled={selectedLength >= 2 && !selected}
               >
-                {selected ? "Remove from box" : `Add to ${dog && dog.name}'s box`}
+                {selected ? "Remove from box" : `Add to box`}
               </button>
             )}
           </div>
