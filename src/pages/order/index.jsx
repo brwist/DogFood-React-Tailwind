@@ -19,11 +19,14 @@ class AllOrdersPage extends React.Component {
 
   render() {
     const { user, dogs, orders, loading } = this.props;
+    
     return (
       <div className='pb-40 container'>
         <div className='flex items-center flex-col md:mt-10 sm:mt-0 font-messina'>
           {loading ? (
-            <Loader />
+         
+            <Loader/> 
+           
           ) : (
             <div className="w-full">
               <OrderTable
