@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="bg-container min-h-screen">
       {loginPage && <LoginNav />}
-      <div className="container flex mx-auto padding-container">
+      <div className={`container flex mx-auto ${!subcriptionPage && "padding-container"}`}>
         {window.location.pathname !== '/manage-subscription' && !window.location.pathname.includes('login') && !window.location.pathname.includes('/edit-plan') && <Navbar />}
         <div className="md:h-20 sm:h-14 h-24"> </div>
         <Alert />

@@ -20,7 +20,7 @@ const CancelOptions = ({
   const [pauseType, setPauseType] = useState('1_delivery');
   const [pauseUntil, setPauseUntil] = useState(null);
   const [reason, setReason] = useState('');
-
+  console.log(pauseUntil,"check pause until")
   const pauseMeal = () => {
     const dogId = currentDog.id;
     const pauseUntilToSend =
@@ -52,7 +52,11 @@ const CancelOptions = ({
     setPauseType('specific');
     setPauseBoxType('MAIN');
   }
-
+  const cancelDateSelection = () => {
+    setPauseType('specific');
+    setPauseBoxType('MAIN');
+    setPauseUntil(null)
+  }
   const options = [
     {
       value: '1_delivery',
@@ -185,10 +189,19 @@ const CancelOptions = ({
       </div>
 
       { pauseBoxType === 'TIME' && (
-        <div className="p-6">
+        <>
+           <div className="flex w-11/12 md:w-9/12 justify-between items-center">
+             <div onClick={()=>cancelDateSelection()} className="cursor-pointer">
+          <svg  width="7" height="24" viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.41421 13.4142C0.633165 12.6332 0.633165 11.3668 1.41421 10.5858L11.0614 0.938591C11.5798 0.420221 12.4202 0.420221 12.9386 0.938591C13.457 1.45696 13.457 2.2974 12.9386 2.81577L3.75437 12L12.9386 21.1842C13.457 21.7026 13.457 22.543 12.9386 23.0614C12.4202 23.5798 11.5798 23.5798 11.0614 23.0614L1.41421 13.4142Z" fill="black"/>
+</svg>
+</div>
           <h2 className="text-xl font-cooper text-center">
           Choose your next delivery date 
           </h2>
+          </div>
+        <div className="py-6 w-8/12 mx-auto">
+       
           <div className="flex justify-center mt-6 mb-4">
             <DatePicker
               dateFormat="YYYY-MM-DD"
@@ -198,16 +211,24 @@ const CancelOptions = ({
               inline
               useWeekdaysShort
             />
+          
+          
           </div>
+          {
+              pauseUntil && 
+              <p className="text-sm mb-4 font-messina">Next billing date is <b>{moment(pauseUntil).format('LL')}</b></p>
+            }
+          
           <div className="flex justify-center">
             <button
-              className="rounded-xl py-3 px-8 text-base font-bold bg-primary text-white"
+              className="rounded-xl py-3 px-8 text-base font-bold bg-primary text-white w-full"
               onClick={handleDateSelection}
             >
               Pick Date
             </button>
           </div>
         </div>
+        </>
       )}
 
       { pauseBoxType === 'REASON' &&
