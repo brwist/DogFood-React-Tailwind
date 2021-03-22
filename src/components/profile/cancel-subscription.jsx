@@ -18,17 +18,17 @@ class CancelSubscription extends Component {
     return (
       <React.Fragment>
         <div className="grid lg:grid-cols-2 xs:grid-cols-1">
-          <div className="lg:-mx-80">
-            <img src="https://images.pexels.com/photos/220938/pexels-photo-220938.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+          <div>
+            <img className="w-full" src="https://images.pexels.com/photos/220938/pexels-photo-220938.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
           </div>
           <div>
-            <div className="lg:-mx-72 lg:-mr-0 w-auto">
-              <div className="bg-green-50 p-5">
+            <div className="w-auto">
+              <div className="bg-green-50 pt-5 pl-12">
                 <h3 className="font-medium text-xl">Manage Subscription</h3>
-                <p className="mt-4 text-xl">
+                <p className="mt-8 text-3xl font-cooper">
                   We'll be waiting for you to come back
                 </p>
-                <div className="mt-4 flex">
+                <div className="mt-8 flex">
                   {this.props.dogs && this.props.dogs.length > 1 && (
                     <DogSelector
                       dogs={this.props.dogs}
@@ -42,6 +42,8 @@ class CancelSubscription extends Component {
                 {this.props.step === 1 && <GuideOptions handleStep={this.props.handleStep}/>}
 
                 {this.props.step === 2 &&
+                <>
+               
                 <CancelOptions
                   currentDog={
                     this.props.dogs.length > 1 &&
@@ -52,7 +54,7 @@ class CancelSubscription extends Component {
                   pauseSubscription={this.props.pauseSubscription}
                   subscriptionCancel={this.props.subscriptionCancel}
                   isSubscriptionPaused={this.props.isSubscriptionPaused}
-                />
+                /></>
                 }
               </div>
             </div>

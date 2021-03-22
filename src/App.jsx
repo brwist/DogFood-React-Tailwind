@@ -21,7 +21,8 @@ import ManageSubscription from './pages/profile/manage-subscription';
 import CheckoutSuccess from './pages/onboardings/steps/success';
 
 function App() {
-  const loginPage = window.location.pathname.includes('login')
+  const loginPage = window.location.pathname.includes('login');
+  const subcriptionPage = window.location.pathname.includes('manage-subscription')
   return (
     <div className="bg-container min-h-screen">
       {loginPage && <LoginNav />}
@@ -29,8 +30,8 @@ function App() {
         {window.location.pathname !== '/manage-subscription' && !window.location.pathname.includes('login') && !window.location.pathname.includes('/edit-plan') && <Navbar />}
         <div className="md:h-20 sm:h-14 h-24"> </div>
         <Alert />
-        {!loginPage && <div className="w-1/5 hidden md:block" />}
-        <div className={`page-content w-full  ${!loginPage && 'md:w-4/5'} mt-8  xl:px-6 bg-container relative`}>
+        {!loginPage && !subcriptionPage && <div className="w-1/5 hidden md:block" />}
+        <div className={`page-content w-full  ${!loginPage && !subcriptionPage &&'md:w-4/5'} mt-8  xl:px-6 bg-container relative`}>
           <div className="page-routing">
             <BrowserRouter>
               <Switch>

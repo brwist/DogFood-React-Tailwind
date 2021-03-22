@@ -133,12 +133,20 @@ const CancelOptions = ({
             </div>
           </div>
         ) : (
-          pauseBoxType === 'MAIN' &&
+          <>
+          {
+             pauseBoxType === 'MAIN' &&
+             <p className="font-cooper text-base font-bold mb-6">How would you like to continue?</p>
+          }
+          
+           {
+             pauseBoxType === 'MAIN' &&
           options.map((opt, i) => (
             <Radio
               key={opt.value + i}
               value={opt.value}
               text={opt.text}
+              isLight={true}
               onChange={() => {
                 if (opt.value === 'specific') {
                   if (pauseUntil === null) {
@@ -154,10 +162,14 @@ const CancelOptions = ({
               className={i === options.length - 1 ? '' : 'mb-7'}
             />
           ))
+           }
+          </>
+          
         )}
         { pauseBoxType === 'MAIN' &&
+        <div className="flex items-center mt-8">
         <button
-          className="rounded-xl py-3 px-8 mt-5 text-base font-bold bg-primary text-white"
+          className="rounded-xl py-3 px-8  text-base font-bold bg-primary text-white"
           onClick={() =>
             pauseType === 'cancel' || pauseType === 'forever'
               ? setPauseBoxType('REASON')
@@ -167,13 +179,15 @@ const CancelOptions = ({
           {pauseType === 'cancel' || pauseType === 'forever'
             ? 'Next'
             : 'Confirm'}
-        </button>}
+        </button>
+        <a className="ml-3 mb-0 text-primary font-messina font-bold" href="/">Select a different meal plan</a>
+        </div>}
       </div>
 
       { pauseBoxType === 'TIME' && (
         <div className="p-6">
-          <h2 className="ml-0 sm:ml-8 text-xl font-bold">
-            Choose the date you'd like to pause until
+          <h2 className="text-xl font-cooper text-center">
+          Choose your next delivery date 
           </h2>
           <div className="flex justify-center mt-6 mb-4">
             <DatePicker

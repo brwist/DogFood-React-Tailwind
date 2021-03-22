@@ -24,7 +24,7 @@ class Radio extends React.Component {
         </div>
         <div
           className={`
-            font-base font-semibold
+            font-base ${this.props.isLight ? "font-normal"  : "font-semibold"}
             ${selected ? 'text-black' : 'text-gray-500'}
           `}
         >
