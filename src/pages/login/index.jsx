@@ -5,6 +5,7 @@ import { authenticationActions } from '../../actions'
 import Loader from "../../assets/images/buttonLoader.svg";
 import Button from '../../components/global/button';
 import Layout from "../../components/layout";
+import { Link } from 'react-router-dom';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -64,12 +65,12 @@ class LoginPage extends React.Component {
                   <div className="font-semibold">
                     Need help? Email us at <a className="text-primary" href="mailto: help@kabo.co">help@kabo.co</a>
                   </div>
-                  <a
+                  <Link
                     className="block text-primary mt-1 mb-5 sm:mb-3 leading-snug text-sm"
-                    href="/forgot-password"
+                    to="/forgot-password"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
                 <button
                   data-cy="login-submit"

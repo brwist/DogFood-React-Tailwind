@@ -51,6 +51,7 @@ module.exports = {
         deliveryStepper: '#FBFBFB',
         greebShade: '#155E41',
         greebShadeInput: '#1C7D57',
+        lightBlue: ' #F8FBFF'
       },
       borderWidth: {
         '3': '1.72532px',
@@ -91,6 +92,7 @@ module.exports = {
         green: 'inset 0px 0px 0px 3px #239C6D',
         tableBoxShadow: '0px 4px 28px rgba(0, 0, 0, 0.04)',
         light: '0px 4px 28px rgba(0, 0, 0, 0.04)',
+        formGray: '0px 4px 28px rgba(0, 0, 0, 0.04)'
       },
       height: {
         '40': '40%',
@@ -110,6 +112,7 @@ module.exports = {
         54: '213px',
         58: '237px',
         70: '272px',
+        664: '664px'
       },
       minWidth: {
         10: '10rem',

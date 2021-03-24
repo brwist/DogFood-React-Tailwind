@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { history } from "./utils";
 import { PrivateRoute, RedirectRoute, NonUserRoute } from "./route";
 import LoginPage from "./pages/login";
+import ResetPasswordPage from "./pages/reset-password";
+import ForgotPasswordPage from "./pages/forgot-password";
 import AccountPage from "./pages/account";
 import AllOrdersPage from "./pages/order";
 import { Navbar } from "./components/navbar";
@@ -19,6 +21,7 @@ import OnboardingVersionA from './pages/onboardings/combined-version';
 import CheckoutStep from './pages/onboardings/steps/checkout';
 import ManageSubscription from './pages/profile/manage-subscription';
 import CheckoutSuccess from './pages/onboardings/steps/success';
+
 
 function App() {
   const [navHeight, setNav] = useState(0);
@@ -61,6 +64,9 @@ function App() {
                   component={OnboardingVersionB}
                 />
                 <Route path="/login" component={LoginPage} />
+                <Route path="/forgot-password" component={ForgotPasswordPage} />
+                <Route path="/reset-password" component={ResetPasswordPage} />
+
                 <PrivateRoute path="/orders" exact component={AllOrdersPage} />
                 <PrivateRoute
                   path="/orders/:id"
