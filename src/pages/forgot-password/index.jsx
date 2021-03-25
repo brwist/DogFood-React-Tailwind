@@ -22,6 +22,7 @@ const ResetPasswordForm = ({
           id="email"
           value={email}
           autoComplete="email"
+          required
           onChange={(e) => setEmail(e.target.value)}
           className="block w-full h-12 px-3 py-2 mt-1 sm:mt-2 border border-solid border-gray-400 rounded-lg"
         />

@@ -11,6 +11,7 @@ const ForgetPasswordForm = ({
   authLoading,
   setAuthLoading,
   handleSubmit,
+  errorMessage,
 }) => (
   <form name="form" data-cy="login-form" onSubmit={handleSubmit}>
     <div className="">
@@ -27,6 +28,7 @@ const ForgetPasswordForm = ({
           id="new-password"
           value={newPassword}
           onChange={handleChange}
+          required
           className="block w-full h-12 px-3 py-2 sm:mt-3 border border-solid border-gray-400 rounded-lg"
         />
       </div>
@@ -43,6 +45,7 @@ const ForgetPasswordForm = ({
           id="confirm-new-password"
           value={confirmedPassword}
           onChange={handleChange}
+          required
           className="block w-full h-12 px-3 py-2  sm:mt-3 border border-solid border-gray-400 rounded-lg"
         />
         <p className="text-xs pt-1 hidden sm:block">Must match previous entry</p>
@@ -57,6 +60,7 @@ const ForgetPasswordForm = ({
     >
       {authLoading ? <img src={Loader} className="w-9" /> : "Save Changes"}
     </button>
+    <p className="text-red-700 text-center pt-2">{errorMessage}</p>
     <div className="flex justify-between">
       <div className="text-sm font-messina bg-lightBlue w-full rounded-lg p-4 mt-5">
         <p>Need help? Email us at </p>
@@ -74,19 +78,29 @@ const ResetPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [authLoading, setAuthLoading] = useState("");
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
+    const { newPassword, confirmedPassword } = formData;
     e.preventDefault();
-    setPasswordChanged(true);
+    if (newPassword === confirmedPassword) {
+      setPasswordChanged(true);
+    } else {
+      setErrorMessage("Passwords Mismatched!");
+    }
   };
   return (
     <Layout>
       <div className="login md:mt-28 sm:mt-23 pt-40 sm:pt-0 w-full mb-5 md:mb-12">
         <div className="w-full md:w-3/5 max-w-664 mx-auto">
           <div className="bg-white px-8 py-7 sm:py-1 sm:px-12 sm:py-8 rounded-lg shadow-formGray">
-            <h2 className={`text-2xl sm:text-4xl ${passwordChanged ? "pb-2" : "pb-4 sm:pb-5"} font-cooper`}>
+            <h2
+              className={`text-2xl sm:text-4xl ${
+                passwordChanged ? "pb-2" : "pb-4 sm:pb-5"
+              } font-cooper`}
+            >
               {passwordChanged ? "Changes saved" : "Reset Your Password"}
             </h2>
             {!passwordChanged && (
@@ -99,6 +113,7 @@ const ResetPasswordPage = () => {
                 authLoading={authLoading}
                 setAuthLoading={setAuthLoading}
                 handleSubmit={handleSubmit}
+                errorMessage={errorMessage}
               />
             )}
             {passwordChanged && (
