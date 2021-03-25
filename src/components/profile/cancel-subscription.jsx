@@ -14,6 +14,8 @@ class CancelSubscription extends Component {
     });
   };
 
+  getDrivedSta
+
   render() {
     return (
       <React.Fragment>
@@ -43,6 +45,7 @@ class CancelSubscription extends Component {
                 <p className="mt-8 text-3xl font-cooper">
                   We'll be waiting for you to come back
                 </p>
+               
                 <div className="mt-8 flex">
                   {this.props.dogs && this.props.dogs.length > 1 && (
                     <DogSelector
@@ -56,7 +59,7 @@ class CancelSubscription extends Component {
               <div className="mt-10 px-10">
                 <CancelOptions
                   currentDog={
-                    this.props.dogs.length > 1 &&
+                    this.props.dogs.length > 0 &&
                     this.props.dogs[this.state.dogIndex]
                   }
                   userName={this.props.userName}
