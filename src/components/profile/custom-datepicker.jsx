@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 
-const CustomDatePicker = ({ pauseUntil, deliveryStartingDateOptions }) => {
+const CustomDatePicker = ({ pauseUntil, setPauseUntil, deliveryStartingDateOptions }) => {
   const disablePastDates = () => {
     const currentDate = moment().toDate();
     return currentDate;

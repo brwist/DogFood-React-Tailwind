@@ -60,26 +60,6 @@ const CancelOptions = ({
     setPauseUntil(null);
   };
 
-  const disablePastDates = () => {
-    const currentDate = moment().toDate();
-    return currentDate;
-  };
-
-  const disableFutureDates = () => {
-    const futureDates = moment().add(1, "M");
-    return new Date(futureDates);
-  };
-
-  const getNextDeliveryDates = () => {
-    const dates = [];
-    delivery_starting_date_options
-      && delivery_starting_date_options.length > 0
-      && delivery_starting_date_options.map((item) => {
-        dates.push(new Date(item.value * 1000));
-      });
-    return dates;
-  };
-
   const handleRadioChange = (opt) => {
     if (opt.value === "specific") {
       if (pauseUntil === null) {
@@ -259,6 +239,7 @@ const CancelOptions = ({
               <CustomDatePicker
                 deliveryStartingDateOptions={delivery_starting_date_options}
                 pauseUntil={pauseUntil}
+                setPauseUntil={setPauseUntil}
               />
             </div>
             {pauseUntil && (
@@ -306,6 +287,7 @@ const CancelOptions = ({
             cancelMeal={cancelMeal}
             pauseType={pauseType}
             pauseUntil={pauseUntil}
+            setPauseUntil={setPauseUntil}
             deliveryStartingDateOptions={delivery_starting_date_options}
           />
         ) : (

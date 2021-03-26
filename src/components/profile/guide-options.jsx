@@ -9,6 +9,7 @@ const GuideOptions = ({
   cancelMeal,
   pauseType,
   pauseUntil,
+  setPauseUntil,
   deliveryStartingDateOptions,
   dogIndex
 }) => {
@@ -126,6 +127,7 @@ const GuideOptions = ({
         isOpen={isDeliveryDateModalOpen}
         toggle={toggleDeliveryDateModal}
         pauseUntil={pauseUntil}
+        setPauseUntil={setPauseUntil}
         deliveryStartingDateOptions={deliveryStartingDateOptions}
       />
       <DeliveryFrequencyModal

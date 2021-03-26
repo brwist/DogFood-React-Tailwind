@@ -4,7 +4,7 @@ import Modal from "../global/modal";
 import CustomDatePicker from "./custom-datepicker";
 
 const DeliveryDateModal = ({
-  isOpen, toggle, pauseUntil, deliveryStartingDateOptions,
+  isOpen, toggle, pauseUntil,setPauseUntil, deliveryStartingDateOptions,
 }) => (
   <Modal
     title="Delivery Frequency"
@@ -17,6 +17,7 @@ const DeliveryDateModal = ({
       <p className="text-2xl font-cooper pb-8">Edit next delivery date</p>
       <CustomDatePicker
         pauseUntil={pauseUntil}
+        setPauseUntil={setPauseUntil}
         deliveryStartingDateOptions={deliveryStartingDateOptions}
       />
       <button
