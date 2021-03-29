@@ -5,7 +5,6 @@ import { authenticationActions } from '../../actions'
 import Loader from "../../assets/images/buttonLoader.svg";
 import Button from '../../components/global/button';
 import Layout from "../../components/layout";
-import { Link } from 'react-router-dom';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -41,7 +40,7 @@ class LoginPage extends React.Component {
     const { email, password, submitted } = this.state;
     return (
       <Layout>
-        <div className="login md:mt-28 sm:mt-23 w-full mb-5 md:mb-12">
+        <div className="login mt-12 w-full mb-5 md:mb-12">
           <div className="w-full md:w-3/5 mx-auto">
             <div className="bg-white px-8 md:py-10 sm:py-1 sm:px-12 sm:py-8 ">
               <form name="form" data-cy="login-form" onSubmit={this.handleSubmit}>
@@ -65,12 +64,12 @@ class LoginPage extends React.Component {
                   <div className="font-semibold">
                     Need help? Email us at <a className="text-primary" href="mailto: help@kabo.co">help@kabo.co</a>
                   </div>
-                  <Link
+                  <a
                     className="block text-primary mt-1 mb-5 sm:mb-3 leading-snug text-sm"
-                    to="/forgot-password"
+                    href="/forgot-password"
                   >
                     Forgot your password?
-                  </Link>
+                  </a>
                 </div>
                 <button
                   data-cy="login-submit"
