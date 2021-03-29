@@ -3,9 +3,21 @@ import { connect } from "react-redux";
 import { slide as Menu } from "react-burger-menu";
 import { authenticationActions, userActions } from "../../actions";
 import "./style.css";
-import "./nav-mobile.css"
+import "./nav-mobile.css";
 
 import { ReactComponent as NavbarLogo } from "../../assets/images/kabo-logo-nav.svg";
+
+const loggedInLinks = [
+  { title: "My Kabo", href: "/" },
+  { title: "Orders", href: "/orders" },
+  { title: "Support", href: "https://kabo.zendesk.com/hc/en-us" },
+  { title: "Blog", href: "https://kabo.co/blog" },
+];
+const loggedOutLinks = [
+  { title: "About Our Food", href: "https://kabo.co/recipes" },
+  { title: "FAQ", href: "https://kabo.co/faq" },
+  { title: "Blog", href: "https://kabo.co/blog" },
+]
 
 class HorizontalNav extends React.Component {
   constructor(props) {
@@ -14,6 +26,7 @@ class HorizontalNav extends React.Component {
       navStep: 0,
       mobileOpen: false,
       notificationsOpen: false,
+      links: this.props.isPrivate ? loggedInLinks: loggedOutLinks
     };
     this.setNav = this.setNav.bind(this);
     this.openMobile = this.openMobile.bind(this);
@@ -57,58 +70,22 @@ class HorizontalNav extends React.Component {
   }
 
   render() {
-    const { user, logout } = this.props;
-    const { navStep } = this.state;
-
-    const active =
-      "text-primary font-cooper font-bold text-white rounded-md text-4xl font-medium";
-    const inActive =
-      "text-charcoal font-cooper hover:text-primary rounded-md text-sm font-medium";
-    const mobileActive =
-      "bg-primary text-white text-center px-2 sm:px-3 py-1 sm:py-2 rounded-md text-xs sm:text-sm font-medium";
-    const mobileInactive =
-      "text-charcoal hover:bg-green-500 bg-mobileNav text-center  hover:text-white px-2 sm:px-3 py-1 sm:py-2 rounded-md text-xs sm:text-sm  font-medium";
-
-    const loggedIn = user && user.token;
-
+    const { links } = this.state;
+    const {isPrivate} = this.props;
+    const inActive = "text-charcoal font-cooper hover:text-primary rounded-md text-sm font-medium";
     return (
       <div
         className="flex md:block p-3 md:px-0 xl:px-6 2xl:px-0 md:top-8 md:left-9 bg-white z-50 w-full"
         id="outer-container"
       >
-        <div className="md:pb-5 md:p-7 w-full pl-0 flex items-center sm:justify-between sm:items-stretch">
+        <div className={`md:pb-5 md:p-7 ${!isPrivate ? "container": ""} w-full pl-0 flex items-center sm:justify-between sm:items-stretch`}>
           <div className="sm:hidden">
-            <Menu
-              pageWrapId={"page-wrap"}
-              noTransition={true}
-              outerContainerId={"outer-container"}
-            >
-              <a
-                href="/"
-                className={inActive}
-              >
-                My Kabo
+            <Menu pageWrapId={"page-wrap"} noTransition={true} outerContainerId={"outer-container"}>
+              {links.map(({ title, href }) => (
+                <a href={href} className={inActive}>
+                  {title}
                 </a>
-              <a
-                href="/orders"
-                className={inActive}
-              >
-                Orders
-              </a>
-              <a
-                id="support"
-                className={inActive}
-                href="https://kabo.zendesk.com/hc/en-us"
-              >
-                Support
-              </a>
-              <a
-                id="blog"
-                className={inActive}
-                href="https://kabo.co/blog"
-              >
-                Blog
-              </a>
+              ))}
               <a
                 onClick={() => this.clickLogout()}
                 className="menu-item font-semibold text-sm"
@@ -118,70 +95,42 @@ class HorizontalNav extends React.Component {
               </a>
             </Menu>
           </div>
-          <div
-            className="flex items-center justify-between flex-wrap w-full "
-            id="page-wrap"
-          >
+          <div className="flex items-center justify-between flex-wrap w-full " id="page-wrap">
             <a href="/" className="self-start">
               <NavbarLogo className="block w-auto" />
             </a>
             <div className="md:flex hidden w-1/3 justify-between items-center">
-              <a
-                href="/"
-                className={inActive}
-              >
-                My Kabo
+              {links.map(({ title, href }) => (
+                <a href={href} className={inActive}>
+                  {title}
                 </a>
-              <a
-                href="/orders"
-                className={inActive}
-              >
-                Orders
-              </a>
-              <a
-                id="support"
-                className={inActive}
-                href="https://kabo.zendesk.com/hc/en-us"
-              >
-                Support
-              </a>
-              <a
-                id="blog"
-                className={inActive}
-                href="https://kabo.co/blog"
-              >
-                Blog
-              </a>
-              <a
-                onClick={() => this.clickLogout()}
-                className="menu-item font-semibold text-sm"
-                href=""
-              >
-                Logout
-              </a>
+              ))}
+              {isPrivate && (
+                <a
+                  onClick={() => this.clickLogout()}
+                  className="menu-item font-semibold text-sm"
+                  href=""
+                >
+                  Logout
+                </a>
+              )}
             </div>
           </div>
         </div>
-
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) =>
-    dispatch(authenticationActions.login({ email, password })),
+  login: (email, password) => dispatch(authenticationActions.login({ email, password })),
   logout: () => dispatch(authenticationActions.logout()),
   getNotifications: async () => dispatch(userActions.getNotificationsData()),
   getUserNotifications: () => dispatch(userActions.getUserNotifications()),
 });
 
 const mapStateToProps = (state) => {
-  const {
-    user,
-    loading_notifications,
-    user_notifications,
-  } = state.authentication;
+  const { user, loading_notifications, user_notifications } = state.authentication;
   return {
     user,
     user_notifications,

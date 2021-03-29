@@ -72,15 +72,12 @@ class Navbar extends React.Component {
       "text-charcoal hover:bg-green-500 bg-mobileNav text-center  hover:text-white px-2 sm:px-3 py-1 sm:py-2 rounded-md text-xs sm:text-sm  font-medium";
 
     const loggedIn = user && user.token;
-    console.log(navStep)
+    console.log(navStep);
 
     return (
-      <nav
-        className="fixed inset-x-0 top-0 py-4 px-3 md:px-0 xl:px-6 2xl:px-0 md:top-8 md:left-9 bg-white z-50 w-full md:w-1/4 lg:w-1/5 md:rounded-xl md:shadow-lg"
-        id="outer-container"
-      >
-        <div className="pb-5 md:p-5 lg:p-7 pl-0 flex md:flex-col items-center md:justify-between sm:items-stretch">
-          <div className="sm:hidden right-4 absolute">
+      <div className="md:w-4/12">
+        <div className="flex md:flex-col items-center md:justify-between sm:items-stretch">
+          <div className="md:hidden top-3 right-4 absolute">
             <Menu
               pageWrapId={"page-wrap"}
               noTransition={true}
@@ -102,18 +99,10 @@ class Navbar extends React.Component {
                   </a>
                 </>
               )}
-              <a
-                id="support"
-                className={inActive}
-                href="https://kabo.zendesk.com/hc/en-us"
-              >
+              <a id="support" className={inActive} href="https://kabo.zendesk.com/hc/en-us">
                 Support
               </a>
-              <a
-                id="blog"
-                className={inActive}
-                href="https://kabo.co/blog"
-              >
+              <a id="blog" className={inActive} href="https://kabo.co/blog">
                 Blog
               </a>
 
@@ -128,121 +117,101 @@ class Navbar extends React.Component {
               )}
             </Menu>
           </div>
-          <div
-            className="flex-shrink-0 flex flex-col flex-wrap md:w-full left-0"
-            id="page-wrap"
+
+          <nav
+            className={`sticky p-7 mt-8 hidden md:block md:mr-5 lg:mr-10 w-full w-max-navbar max-h-navbar inset-x-0 top-0 py-4 px-6  md:top-12 left-9 bg-white z-50  md:rounded-xl md:shadow-lg`}
+            id="outer-container"
           >
-            <a href="/" className="self-start">
-              <NavbarLogo className="block w-auto" />
-            </a>
+            <div className="flex-shrink-0 flex flex-col flex-wrap md:w-full left-0" id="page-wrap">
+              <a href="/" className="self-start">
+                <NavbarLogo className="block w-auto" />
+              </a>
+              {loggedIn && (
+                <div className="hidden md:flex flex-col mt-2">
+                  <a href="/" className={navStep === 1 ? active : inActive}>
+                    My Kabo
+                  </a>
+                  {/* <a href="/store" className={navStep === 2 ? active : inActive}>Store</a> */}
+                  <a href="/orders" className={navStep === 3 ? active : inActive}>
+                    Orders
+                  </a>
+                  <a href="/profile" className={navStep === 4 ? active : inActive}>
+                    Account
+                  </a>
+                  <a id="blog" className={inActive} href="https://kabo.co/blog">
+                    Blog
+                  </a>
+                  <a
+                    href="https://kabo.zendesk.com/hc/en-us"
+                    className={`hidden md:block ${inActive}`}
+                    target="_blank"
+                  >
+                    Support
+                  </a>
+                </div>
+              )}
+            </div>
             {loggedIn && (
-              <div className="hidden md:flex flex-col mt-2">
-                <a href="/" className={navStep === 1 ? active : inActive}>
-                  My Kabo
-                    </a>
-                {/* <a href="/store" className={navStep === 2 ? active : inActive}>Store</a> */}
-                <a
-                  href="/orders"
-                  className={navStep === 3 ? active : inActive}
+              <div className="flex flex-row center md:mr-20 sm:mr-0">
+                {this.props.user_notifications && this.props.user_notifications.length > 0 && (
+                  <div
+                    className="profile-box-icon"
+                    onClick={() => this.setState({ notificationsOpen: true })}
+                  >
+                    <img src={bellImage} />
+                    <span
+                      className={
+                        true ? "profile-box-unread-amount got-unread" : "profile-box-unread-amount"
+                      }
+                    >
+                      2
+                    </span>
+                    {this.state.notificationsOpen && (
+                      <NotificationsList
+                        closeNotifications={this.closeNotifications}
+                        loading_notifications={this.props.loading_notifications}
+                        user_notifications={this.props.user_notifications}
+                      />
+                    )}
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => this.clickLogout()}
+                  className="hidden md:block font-messina font-semibold text-base md:pb-2 md:mt-6"
                 >
-                  Orders
-                </a>
-                <a
-                  href="/profile"
-                  className={navStep === 4 ? active : inActive}
-                >
-                  Account
-                </a>
-                <a
-                  id="blog"
-                  className={inActive}
-                  href="https://kabo.co/blog"
-                >
-                  Blog
-                </a>
-                <a
-                  href="https://kabo.zendesk.com/hc/en-us"
-                  className={`hidden md:block ${inActive}`}
-                  target="_blank"
-                >
-                  Support
-                </a>
+                  Logout
+                </button>
               </div>
             )}
-          </div>
-          {loggedIn && (
-            <div className="flex flex-row center md:mr-20 sm:mr-0">
-              {this.props.user_notifications && this.props.user_notifications.length > 0 &&
-                <div
-                  className="profile-box-icon"
-                  onClick={() => this.setState({ notificationsOpen: true })}
-                >
-                  <img src={bellImage} />
-                  <span
-                    className={
-                      true
-                        ? "profile-box-unread-amount got-unread"
-                        : "profile-box-unread-amount"
-                    }
-                  >
-                    2
-                  </span>
-                  {this.state.notificationsOpen && (
-                    <NotificationsList
-                      closeNotifications={this.closeNotifications}
-                      loading_notifications={this.props.loading_notifications}
-                      user_notifications={this.props.user_notifications}
-                    />
-                  )}
-                </div>
-              }
-              <button
-                type="button"
-                onClick={() => this.clickLogout()}
-                className="hidden md:block font-messina font-semibold text-base md:pb-2 md:mt-6"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+          </nav>
         </div>
-        <div className="sm:hidden grid grid-cols-3 gap-4">
+        <div className="md:hidden py-10 grid grid-cols-3 gap-4">
           <a href="/" className={navStep === 1 ? mobileActive : mobileInactive}>
             My Kabo
           </a>
           {/* <a href="/store" className={navStep === 2 ? active : inActive}>Store</a> */}
-          <a
-            href="/orders"
-            className={navStep === 3 ? mobileActive : mobileInactive}
-          >
+          <a href="/orders" className={navStep === 3 ? mobileActive : mobileInactive}>
             Orders
           </a>
-          <a
-            href="/profile"
-            className={navStep === 4 ? mobileActive : mobileInactive}
-          >
+          <a href="/profile" className={navStep === 4 ? mobileActive : mobileInactive}>
             Account
           </a>
         </div>
-      </nav>
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) =>
-    dispatch(authenticationActions.login({ email, password })),
+  login: (email, password) => dispatch(authenticationActions.login({ email, password })),
   logout: () => dispatch(authenticationActions.logout()),
   getNotifications: async () => dispatch(userActions.getNotificationsData()),
   getUserNotifications: () => dispatch(userActions.getUserNotifications()),
 });
 
 const mapStateToProps = (state) => {
-  const {
-    user,
-    loading_notifications,
-    user_notifications,
-  } = state.authentication;
+  const { user, loading_notifications, user_notifications } = state.authentication;
   return {
     user,
     user_notifications,
