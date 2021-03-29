@@ -11,7 +11,7 @@ const ForgetPasswordForm = ({
   authLoading,
   setAuthLoading,
   handleSubmit,
-  errorMessage,
+  isError,
 }) => (
   <form name="form" data-cy="login-form" onSubmit={handleSubmit}>
     <div className="">
@@ -48,7 +48,9 @@ const ForgetPasswordForm = ({
           required
           className="block w-full h-12 px-3 py-2  sm:mt-3 border border-solid border-gray-400 rounded-lg"
         />
-        <p className="text-xs pt-1 hidden sm:block">Must match previous entry</p>
+        <p className={`text-xs pt-1 hidden sm:block ${isError ? "text-red-700" : ""}`}>
+          Must match previous entry
+        </p>
       </div>
     </div>
     <button
@@ -60,7 +62,6 @@ const ForgetPasswordForm = ({
     >
       {authLoading ? <img src={Loader} className="w-9" /> : "Save Changes"}
     </button>
-    <p className="text-red-700 text-center pt-2">{errorMessage}</p>
     <div className="flex justify-between">
       <div className="text-sm font-messina bg-lightBlue w-full rounded-lg p-4 mt-5">
         <p>Need help? Email us at </p>
@@ -78,17 +79,21 @@ const ResetPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [authLoading, setAuthLoading] = useState("");
   const [passwordChanged, setPasswordChanged] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   const handleChange = (e) => {
+    const { newPassword, confirmedPassword } = formData;
+    if (newPassword === confirmedPassword) {
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
-    const { newPassword, confirmedPassword } = formData;
     e.preventDefault();
-    if (newPassword === confirmedPassword) {
+    if (!errorMessage) {
       setPasswordChanged(true);
-    } else {
-      setErrorMessage("Passwords Mismatched!");
     }
   };
   return (
@@ -113,7 +118,8 @@ const ResetPasswordPage = () => {
                 authLoading={authLoading}
                 setAuthLoading={setAuthLoading}
                 handleSubmit={handleSubmit}
-                errorMessage={errorMessage}
+                isError={isError}
+                setIsError={setIsError}
               />
             )}
             {passwordChanged && (
