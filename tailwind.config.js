@@ -51,7 +51,8 @@ module.exports = {
         deliveryStepper: '#FBFBFB',
         greebShade: '#155E41',
         greebShadeInput: '#1C7D57',
-        lightBlue: ' #F8FBFF'
+        lightBluePad: '#F8FBFF',
+        recipeSelection: '#E5F6E6',
       },
       borderWidth: {
         '3': '1.72532px',
@@ -78,6 +79,7 @@ module.exports = {
         '5lg': '10px',
         '5md': '5.75108px',
         '6md': '9px',
+        '2.5xl': '20px',
       },
       margin: {
         1.3: '0.312rem',
@@ -92,7 +94,6 @@ module.exports = {
         green: 'inset 0px 0px 0px 3px #239C6D',
         tableBoxShadow: '0px 4px 28px rgba(0, 0, 0, 0.04)',
         light: '0px 4px 28px rgba(0, 0, 0, 0.04)',
-        formGray: '0px 4px 28px rgba(0, 0, 0, 0.04)'
       },
       height: {
         '40': '40%',
@@ -107,25 +108,44 @@ module.exports = {
       maxWidth: {
         23: '23rem',
         37: '148px',
+        39.5: '156.52px',
         43: '170px',
         56.5: '225px',
         54: '213px',
         58: '237px',
         70: '272px',
-        664: '664px'
+        664: '664px',
+        137: '579px',
       },
       minWidth: {
         10: '10rem',
         23.5: '95px',
       },
       spacing: {
+        0.25: '1px',
+        0.75: '3px',
+        1.25: '5px',
         1.75: '7px',
+        2.5: '10px',
+        3.25: '13px',
         3.5: '14px',
         4.25: '17px',
-        4.5: '187px',
+        4.5: '18px',
         4.75: '19px',
+        5.2: '21px',
         5.5: '22px',
+        6.75: '27px',
+        7.25: '29px',
+        8.25: '33px',
+        9.25: '37px',
+        16.6: '73px',
       },
+      fontSize: {
+        '3.2xl': '32px',
+      },
+      lineHeight: {
+        4.5: '18px',
+      }
     },
     fontFamily: {
       messina: ['Messinasans, sans-serif'],
