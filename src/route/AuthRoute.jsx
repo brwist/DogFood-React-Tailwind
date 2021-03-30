@@ -22,12 +22,11 @@ const AuthRoute = ({
   return (
     <>
       {isHorizontalNav && <HorizontalNav isPrivate={isPrivate} />}
-      <div className="container flex mx-auto">
+      <div className="container md:flex mx-auto">
         {!noHeader && <Navbar />}
         <Alert />
         <div
-          style={{ marginTop: navHeight }}
-          className="page-content w-full md:ml-10 bg-container relative"
+          className={`page-content md:${navHeight} w-full md:ml-10 bg-container relative`}
         >
           <div className="page-routing">
             {!isPrivate && <Route {...rest} render={(props) => <Component {...props} />} />}

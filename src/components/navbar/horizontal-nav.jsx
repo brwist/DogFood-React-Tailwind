@@ -79,7 +79,7 @@ class HorizontalNav extends React.Component {
         id="outer-container"
       >
         <div className={`md:pb-5 md:p-7 ${!isPrivate ? "container": ""} w-full pl-0 flex items-center sm:justify-between sm:items-stretch`}>
-          <div className="sm:hidden top-3 right-4 absolute z-100000">
+          <div className="md:hidden top-3 right-4 absolute z-100000">
             <Menu pageWrapId={"page-wrap"} noTransition={true} outerContainerId={"outer-container"}>
               {links.map(({ title, href }) => (
                 <a href={href} className={inActive}>

@@ -186,7 +186,7 @@ class Navbar extends React.Component {
             )}
           </nav>
         </div>
-        <div className="md:hidden py-10 grid grid-cols-3 gap-4">
+        <div className="md:hidden pt-16 py-10 grid grid-cols-3 gap-4">
           <a href="/" className={navStep === 1 ? mobileActive : mobileInactive}>
             My Kabo
           </a>

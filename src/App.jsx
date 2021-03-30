@@ -21,9 +21,9 @@ function App() {
   useEffect(() => {
     let findNavHeight = (document.getElementById("outer-container")
         && document.getElementById("outer-container").clientHeight + 20)
-      || "2rem";
+      || "m-8";
     if (findNavHeight > 200 && !isSubcriptionPage) {
-      findNavHeight = "2rem";
+      findNavHeight = "m-8";
     } else {
       findNavHeight = 0;
     }
