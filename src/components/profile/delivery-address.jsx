@@ -21,6 +21,9 @@ class DeliveryAddress extends React.Component {
     this.editDeliveryAddress = this.editDeliveryAddress.bind(this);
   }
 
+  static getDerivedStateFromProps(props, state) {
+      return { deliveryAddress: props.deliveryAddress }
+  }
   componentDidMount() {
     this.setState({
       deliveryAddress: {
