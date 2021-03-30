@@ -23,6 +23,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      zIndex: {
+        '100000': 100000,
+      },
       textColor: {
         primary: "#239C6D",
         secondary: "#124E37",
