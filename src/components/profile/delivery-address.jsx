@@ -73,10 +73,10 @@ class DeliveryAddress extends React.Component {
                 <div>{deliveryAddress.delivery_instructions},</div>
               )}
             </div>
-
-            {deliveryAddress.delivery_instructions && (
-              <div>
-                Special Instructions: {deliveryAddress.delivery_instructions}
+                {console.log("deliveryAddress >>>", deliveryAddress)}
+            {deliveryAddress.line3 && (
+              <div className="block sm:hidden">
+                Special Instructions: {deliveryAddress.line3}
               </div>
             )}
 

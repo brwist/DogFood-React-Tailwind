@@ -49,7 +49,7 @@ class ProfilePage extends React.Component {
     const detailsCard = 'container pb-6';
     return (
       <>
-        <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4">
+        <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4 mt-28 sm:mt-0">
           <div className="flex flex-col justify-between">
             <div className={detailsCard}>
               <Billing
