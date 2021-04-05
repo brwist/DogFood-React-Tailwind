@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ReactComponent as OrderEnvelope } from '../../assets/images/order-envelope.svg';
 import IndividualOrder from '../order/individualOrder';
 
@@ -51,7 +52,10 @@ const OrderTable = ({ orders, dogs, coupon, shippingAddress, showModal, handleCl
                   <a className="text-primary cursor-pointer" onClick={() => handleOrder(index)}>View Order</a>
                 </td>
                 <td className="text-sm  px-4 md:px-1 lg:px-4 w-1/5">
-                  <span>{total}</span>
+                  <p className="pb-1">{total}</p>
+                  <Link className="text-primary cursor-pointer" to={`/orders/${invoice_id}`}>
+                    See Details
+                  </Link>
                   <br />
                 </td>
                 <td className="text-sm px-4 md:px-1 lg:px-4 py-3 w-2/5">{plan}</td>

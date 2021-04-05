@@ -124,9 +124,15 @@ class OrderDetail extends React.Component {
             </div>
           </div>
         </div>
-
-        <OrderItemModal item={selItem} showModal={this.state.showDetailModal} onClose={() => { this.setState({ showDetailModal: false }) }} />
-
+        {selItem && (
+          <OrderItemModal
+            item={selItem}
+            showModal={this.state.showDetailModal}
+            onClose={() => {
+              this.setState({ showDetailModal: false });
+            }}
+          />
+        )}
       </div>
     );
   }
