@@ -1,30 +1,32 @@
-import React, {useEffect} from 'react';
-import Modal from '../global/modal';
-import { connect } from 'react-redux';
-import { userActions } from '../../actions/index.js';
+import React, { useEffect } from "react";
+import { connect, useSelector } from "react-redux";
+import Modal from "../global/modal";
+import { userActions } from "../../actions/index.js";
 
-import Input from '../global/input.jsx';
+import Input from "../global/input.jsx";
 
 const AccountDetailsModal = ({
-  user = null,
-  updateUserPhoneEmail,
-  isOpen,
-  toggle
+  user = null, updateUserPhoneEmail, isOpen, toggle,
 }) => {
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [submitted,setSubmitted] = React.useState(false);
+  const {
+    user: {
+      updateAccountPhoneEmail: { isLoading, successMessage, errorMessage },
+    },
+  } = useSelector((state) => state);
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [submitted, setSubmitted] = React.useState(false);
 
   useEffect(() => {
     if (user.shipping_address) {
       setPhoneNumber(user.billing_address.phone);
       setEmail(user.billing_address.email);
     }
-  }, [user]);
+  }, [user.billing_address.phone, user.billing_address.email]);
 
   const phoneEmailSubmitHandler = () => {
-    let apiObject = {
-      email: email,
+    const apiObject = {
+      email,
       phone_number: phoneNumber,
     };
     updateUserPhoneEmail(apiObject) && setSubmitted(true);
@@ -54,20 +56,19 @@ const AccountDetailsModal = ({
         >
           Save Changes
         </button>
-        {submitted && <div className="text-primary text-xs font-messina mt-1" >Your changes have been saved</div>}
+        {successMessage && (
+          <div className="text-primary text-xs font-messina mt-1">{successMessage}</div>
+        )}
+        {errorMessage && (
+          <div className="text-red-600 text-xs font-messina mt-1">{errorMessage}</div>
+        )}
       </div>
     </Modal>
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateUserPhoneEmail: (data) =>
-      dispatch(userActions.updateUserPhoneEmail(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  updateUserPhoneEmail: (data) => dispatch(userActions.updateUserPhoneEmail(data)),
+});
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(AccountDetailsModal);
+export default connect(null, mapDispatchToProps)(AccountDetailsModal);

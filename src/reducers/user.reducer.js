@@ -1,7 +1,7 @@
-import { userConstants, otherConstants } from '../constants';
+import { userConstants, otherConstants } from "../constants";
 
-const couponResponse = localStorage.getItem('couponResponse')
-  ? JSON.parse(localStorage.getItem('couponResponse'))
+const couponResponse = localStorage.getItem("couponResponse")
+  ? JSON.parse(localStorage.getItem("couponResponse"))
   : null;
 const initialState = {
   subscriptions: {},
@@ -28,6 +28,12 @@ const initialState = {
   subscriptionCancel: false,
   pausing_subscription: false,
   isSubscriptionPaused: false,
+  updateAccountPhoneEmail: {
+    isLoading: false,
+    isSuccess: false,
+    successMessage: null,
+    errorMessage: null,
+  },
 
   showManageSubscriptionsBox: false,
 };
@@ -77,6 +83,12 @@ export const user = (state = initialState, action) => {
         ...action.payload,
         loading: false,
         error: false,
+        updateAccountPhoneEmail: {
+          isLoading: false,
+          isSuccess: false,
+          successMessage: "Your changes have been saved",
+          errorMessage: null,
+        },
       };
     case userConstants.UPDATE_DELIVERY_FREQUENCY_FAILURE:
       return {
@@ -91,7 +103,36 @@ export const user = (state = initialState, action) => {
         loading: true,
         error: false,
       };
-
+    case userConstants.UPDATE_USER_PHONE_EMAIL:
+      return {
+        ...state,
+        updateAccountPhoneEmail: {
+          isLoading: true,
+          isSuccess: false,
+          successMessage: null,
+          errorMessage: null,
+        },
+      };
+    case userConstants.UPDATE_USER_PHONE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        updateAccountPhoneEmail: {
+          isLoading: false,
+          isSuccess: false,
+          successMessage: "Your changes have been saved",
+          errorMessage: null,
+        },
+      };
+    case userConstants.UPDATE_USER_PHONE_EMAIL_FAILURE:
+      return {
+        ...state,
+        updateAccountPhoneEmail: {
+          isLoading: false,
+          isSuccess: false,
+          successMessage: null,
+          errorMessage: action.payload.message,
+        },
+      };
     case userConstants.DELIVERY_UPDATE_REQUESTED:
       return {
         ...state,
@@ -137,9 +178,9 @@ export const user = (state = initialState, action) => {
         error: false,
       };
     case userConstants.UNPAUSE_SUBSCRIPTION_SUCCESS: {
-      let nextState = { ...state };
+      const nextState = { ...state };
       if (action.payload.subscription.id) {
-        //setting new state directly in subscriptions object
+        // setting new state directly in subscriptions object
         nextState.subscriptions[action.payload.subscription.id] = {
           ...nextState.subscriptions[action.payload.subscription.id],
           ...action.payload.subscription,
@@ -195,8 +236,8 @@ export const user = (state = initialState, action) => {
     case userConstants.UPDATE_PWD_ALERT_CLEAR:
       return {
         ...state,
-        pwd_update_success: ' ',
-        pwd_alert: ' ',
+        pwd_update_success: " ",
+        pwd_alert: " ",
       };
     case userConstants.OPEN_UPDATE_PAYMENT_MODAL_SUCCESS:
       return {
@@ -222,15 +263,15 @@ export const user = (state = initialState, action) => {
         open_payment_modal: !state.open_payment_modal,
         payment_method_updated: true,
         payment_billing_address: {
-          stripe_token: '',
-          same_as_shipping_address: '',
-          billing_first_name: '',
-          billing_last_name: '',
-          billing_street_address: '  ',
-          billing_apt_suite: '',
-          billing_city: '',
-          billing_postal_code: '',
-          billing_phone_number: '',
+          stripe_token: "",
+          same_as_shipping_address: "",
+          billing_first_name: "",
+          billing_last_name: "",
+          billing_street_address: "  ",
+          billing_apt_suite: "",
+          billing_city: "",
+          billing_postal_code: "",
+          billing_phone_number: "",
         },
       };
 
@@ -277,7 +318,7 @@ export const user = (state = initialState, action) => {
       };
     }
     case userConstants.CANCEL_SUBSCRIPTION_SUCCESS: {
-      let nextState = { ...state };
+      const nextState = { ...state };
       if (action.payload.subscription.id) {
         nextState.subscriptions[action.payload.subscription.id] = {
           ...nextState.subscriptions[action.payload.subscription.id],
@@ -295,7 +336,7 @@ export const user = (state = initialState, action) => {
       return {
         ...state,
         error: false,
-        errorMessage: '',
+        errorMessage: "",
       };
     case userConstants.RESET_USER_LOADING:
       return {
@@ -306,22 +347,22 @@ export const user = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        errorMessage: '',
+        errorMessage: "",
       };
     case userConstants.APPLY_COUPON_SUCCESS:
-      localStorage.setItem('couponResponse', JSON.stringify(action.payload));
+      localStorage.setItem("couponResponse", JSON.stringify(action.payload));
 
       return {
         ...state,
         loading: false,
-        errorMessage: '',
+        errorMessage: "",
         couponResponse: action.payload,
       };
     case userConstants.APPLY_COUPON_FAILURE:
-      localStorage.removeItem('couponResponse');
+      localStorage.removeItem("couponResponse");
       return {
         ...state,
-        errorMessage: 'Invalid coupon',
+        errorMessage: "Invalid coupon",
         loading: false,
       };
     case userConstants.APPLY_COUPON_PER_DOG:
@@ -352,10 +393,7 @@ export const user = (state = initialState, action) => {
         if (!newState.loadingKeys[action.key] && action.value) {
           newState = { ...state };
           newState.loadingKeys[action.key] = action.value;
-        } else if (
-          !action.value &&
-          newState.loadingKeys.hasOwnProperty(action.key)
-        ) {
+        } else if (!action.value && newState.loadingKeys.hasOwnProperty(action.key)) {
           newState = { ...state };
           delete newState.loadingKeys[action.key];
         }
