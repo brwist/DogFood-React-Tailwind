@@ -62,9 +62,9 @@ function* getOrderDataSaga() {
 function* cancelSubscriptionSaga(action) {
   try {
     const payload = yield call(userService.cancelSubscription, action.payload);
-    yield put({ type: userConstants.CANCEL_SUBSCRIPTION_SUCCESS, payload })
-  } catch(error) {
-    yield put({ type: otherConstants.REQUEST_ERROR, payload: error })
+    yield put({ type: userConstants.CANCEL_SUBSCRIPTION_SUCCESS, payload });
+  } catch (error) {
+    yield put({ type: otherConstants.REQUEST_ERROR, payload: error });
   }
 }
 
@@ -100,6 +100,7 @@ function* updateEmailPhoneSaga(action) {
   try {
     const payload = yield call(userService.updatePhoneEmail, action.payload);
     yield put({ type: userConstants.UPDATE_USER_PHONE_EMAIL_SUCCESS, payload });
+    yield put({ type: userConstants.ACCOUNT_DATA_REQUESTED });
   } catch (e) {
     yield put({
       type: userConstants.UPDATE_USER_PHONE_EMAIL_FAILURE,
@@ -115,6 +116,7 @@ function* updateDeliveryFrequencySaga(action) {
       type: userConstants.UPDATE_DELIVERY_FREQUENCY_SUCCESS,
       payload,
     });
+    yield put({ type: userConstants.ACCOUNT_DATA_REQUESTED });
   } catch (e) {
     yield put({
       type: userConstants.UPDATE_DELIVERY_FREQUENCY_FAILURE,
@@ -127,6 +129,7 @@ function* updatePassword(action) {
   try {
     const payload = yield call(userService.updatePwd, action.payload);
     yield put({ type: userConstants.UPDATE_PWD_SUCCESS, payload });
+    yield put({ type: userConstants.ACCOUNT_DATA_REQUESTED });
   } catch (e) {
     yield put({ type: userConstants.UPDATE_PWD_FAILURE, payload: e });
   }
@@ -150,6 +153,7 @@ function* updatePaymentMethod(action) {
   try {
     const payload = yield call(userService.updatePaymentMethod, action.payload);
     yield put({ type: userConstants.UPDATE_PAYMENT_METHOD_SUCCESS, payload });
+    yield put({ type: userConstants.ACCOUNT_DATA_REQUESTED });
   } catch (error) {
     yield put({ type: userConstants.UPDATE_PAYMENT_METHOD_FAILED, error });
   }
