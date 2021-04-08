@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Loader from "../../assets/images/buttonLoader.svg";
-import Button from "../../components/global/button";
-import Layout from "../../components/layout";
+import queryString from "query-string";
+import { authenticationActions } from "../../actions";
 import ForgetPasswordForm from "../../components/forms/forget-form";
+import Layout from "../../components/layout";
 
 const ResetPasswordPage = () => {
+  const dispatch = useDispatch();
+  const {
+    authentication: { resetPassword },
+  } = useSelector((state) => state);
   const [formData, setFormData] = useState({ newPassword: "", confirmedPassword: "" });
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [authLoading, setAuthLoading] = useState("");
-  const [passwordChanged, setPasswordChanged] = useState(false);
   const [error, setError] = useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,9 +26,16 @@ const ResetPasswordPage = () => {
     }
   };
   const handleSubmit = (e) => {
+    const searchParams = queryString.parse(history.location.search);
     e.preventDefault();
     if (!error) {
-      setPasswordChanged(true);
+      dispatch(
+        authenticationActions.resetPassword({
+          password: formData.newPassword,
+          confirmedPassword: formData.confirmedPassword,
+          resetPasswordToken: searchParams.reset_password_token,
+        }),
+      );
     }
   };
   return (
@@ -34,12 +45,12 @@ const ResetPasswordPage = () => {
           <div className="bg-white px-8 py-7 sm:py-1 sm:px-12 sm:py-8 rounded-lg shadow-light">
             <h2
               className={`text-2xl sm:text-4xl ${
-                passwordChanged ? "pb-2" : "pb-4 sm:pb-5"
+                resetPassword.success ? "pb-2" : "pb-4 sm:pb-5"
               } font-cooper`}
             >
-              {passwordChanged ? "Changes saved" : "Reset Your Password"}
+              {resetPassword.success ? "Changes saved" : "Reset Your Password"}
             </h2>
-            {passwordChanged ? (
+            {resetPassword.success ? (
               <div>
                 <p className="font-messina text-sm font-normal">Your Password has been reset.</p>
                 <button
@@ -61,6 +72,7 @@ const ResetPasswordPage = () => {
                 setAuthLoading={setAuthLoading}
                 handleSubmit={handleSubmit}
                 error={error}
+                errorMessage={resetPassword.errorMessage}
               />
             )}
           </div>

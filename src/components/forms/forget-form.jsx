@@ -8,6 +8,7 @@ const ForgetPasswordForm = ({
   setAuthLoading,
   handleSubmit,
   error,
+  errorMessage,
 }) => (
   <form name="form" data-cy="login-form" onSubmit={handleSubmit}>
     <div>
@@ -47,6 +48,7 @@ const ForgetPasswordForm = ({
         <p className={`text-xs pt-1 hidden sm:block ${error ? "text-red-700" : ""}`}>
           Must match previous entry
         </p>
+        <p className="text-red-700">{errorMessage}</p>
       </div>
     </div>
     <button

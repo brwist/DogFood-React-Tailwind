@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import Loader from "../../assets/images/buttonLoader.svg";
-import Button from "../../components/global/button";
-import Layout from "../../components/layout";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticationActions } from "../../actions";
 import ResetPasswordForm from "../../components/forms/reset-form";
+import Layout from "../../components/layout";
 
 const ForgotPasswordPage = () => {
+  const dispatch = useDispatch();
+  const {
+    authentication: { forgetPassword },
+  } = useSelector((state) => state);
   const [email, setEmail] = useState("");
   const [authLoading, setAuthLoading] = useState("");
-  const [emailSent, setEmailSent] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmailSent(true);
+    dispatch(authenticationActions.forgetPassword({ email }));
   };
   return (
     <Layout>
@@ -18,9 +21,9 @@ const ForgotPasswordPage = () => {
         <div className="w-full md:w-3/5 max-w-664 mx-auto">
           <div className="bg-white px-8 py-10 sm:py-1 sm:px-12 sm:py-8 rounded-lg shadow-light">
             <h2 className="text-2xl sm:text-4xl pb-2 font-cooper">
-              {emailSent ? "Please check your email" : "Forgot Your Password?"}
+              {forgetPassword.success ? "Please check your email" : "Forgot Your Password?"}
             </h2>
-            {emailSent ? (
+            {forgetPassword.success ? (
               <p className="font-messina text-sm">
                 If your email is valid, you will receive a email from us.
               </p>
@@ -31,6 +34,7 @@ const ForgotPasswordPage = () => {
                 authLoading={authLoading}
                 setAuthLoading={setAuthLoading}
                 handleSubmit={handleSubmit}
+                errorMessage={forgetPassword.errorMessage}
               />
             )}
           </div>

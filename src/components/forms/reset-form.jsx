@@ -1,7 +1,12 @@
 import React from "react";
 
 const ResetPasswordForm = ({
-  email, setEmail, authLoading, setAuthLoading, handleSubmit,
+  email,
+  setEmail,
+  authLoading,
+  setAuthLoading,
+  handleSubmit,
+  errorMessage,
 }) => (
   <form name="form" data-cy="login-form" onSubmit={handleSubmit}>
     <div>
@@ -25,10 +30,13 @@ const ResetPasswordForm = ({
         />
       </div>
     </div>
+    <p className="text-red-700 m-0">{errorMessage}</p>
     <button
       data-cy="login-submit"
       type="submit"
-      className={`w-full h-12 font-cooper bg-primary text-white rounded-xl mt-6 leading-8 text-base font-medium ${authLoading ? "flex justify-center items-center" : ""}`}
+      className={`w-full h-12 font-cooper bg-primary text-white rounded-xl mt-6 leading-8 text-base font-medium ${
+        authLoading ? "flex justify-center items-center" : ""
+      }`}
     >
       {authLoading ? <img src={Loader} className="w-9" /> : "Reset Password"}
     </button>

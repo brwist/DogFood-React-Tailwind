@@ -6,6 +6,8 @@ const apiVersion2 = process.env.REACT_APP_API_VERSION2;
 
 export const endpointConstants = {
   LOGIN: `${apiDomain}/login`,
+  FORGET_PASSWORD: `${apiDomain}/forgot_password`,
+  RESET_PASSWORD: `${apiDomain}/reset_password`,
   GET_ACCOUNT_DATA: `${apiDomain}/${apiVersion}/user/details`,
   PAUSE_SUBSCRIPTION: `${apiDomain}/${apiVersion}/user/subscriptions/pause`,
   UNPAUSE_SUBSCRIPTION: `${apiDomain}/${apiVersion}/user/subscriptions/resume`,

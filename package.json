@@ -22,7 +22,7 @@
     "postcss": "^7",
     "prop-types": "^15.7.2",
     "qs": "^6.9.6",
-    "query-string": "^6.14.0",
+    "query-string": "^7.0.0",
     "react": "^17.0.1",
     "react-burger-menu": "^3.0.3",
     "react-content-loader": "^6.0.1",
